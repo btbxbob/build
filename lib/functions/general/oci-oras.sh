@@ -8,6 +8,7 @@
 # https://github.com/armbian/build/
 
 function run_tool_oras() {
+	source /etc/environment
 	# Default version
 	ORAS_VERSION=${ORAS_VERSION:-1.2.0} # https://github.com/oras-project/oras/releases
 	#ORAS_VERSION=${ORAS_VERSION:-"1.0.0-rc.1"} # https://github.com/oras-project/oras/releases
@@ -94,7 +95,8 @@ function run_tool_oras() {
 		fi
 
 		display_alert "Calling ORAS" "$*" "debug"
-		env -i "HOME=${ORAS_HOME}" "${ORAS_BIN}" "$@"
+		source /etc/environment
+		env "HOME=${ORAS_HOME}" "${ORAS_BIN}" "$@"
 	fi
 }
 
