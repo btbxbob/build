@@ -95,8 +95,14 @@ function run_tool_oras() {
 		fi
 
 		display_alert "Calling ORAS" "$*" "debug"
-		source /etc/environment
-		env "HOME=${ORAS_HOME}" "${ORAS_BIN}" "$@"
+
+		env "HOME=${ORAS_HOME}" \
+			"HTTP_PROXY=http://192.168.8.89:1080" \
+			"http_proxy=http://192.168.8.89:1080" \
+			"HTTPS_PROXY=http://192.168.8.89:1080" \
+			"https_proxy=http://192.168.8.89:1080" \
+			"NO_PROXY=127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16" \
+			"${ORAS_BIN}" "$@"
 	fi
 }
 
